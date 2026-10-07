@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Sponskip</title>
+  <link rel="icon" type="image/png" href="icon128.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0a0a0c; color: #f3f4f6; }
+  </style>
+</head>
+<body class="min-h-screen p-6 md:p-12 max-w-4xl mx-auto">
+  <header class="mb-10 pb-6 border-b border-gray-800 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <img src="icon48.png" alt="Sponskip" class="w-8 h-8 rounded-lg">
+      <span class="text-xl font-bold tracking-tight">Sponskip</span>
+    </div>
+    <a href="/" class="text-sm text-gray-400 hover:text-white transition">← Back to Home</a>
+  </header>
+
+  <main class="space-y-8 text-gray-300 leading-relaxed">
+    <h1 class="text-3xl font-extrabold text-white">Privacy Policy for Sponskip</h1>
+    <p class="text-sm text-gray-500">Last updated: October 6, 2026</p>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold text-white">1. Core Privacy Commitment</h2>
+      <p>Sponskip is built on a single uncompromising principle: <strong>your browsing data belongs strictly to you</strong>. Sponskip does not collect, log, track, share, or sell any personal data, viewing history, account credentials, or telemetry of any kind.</p>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold text-white">2. What Data We Process</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>YouTube Video Captions:</strong> When you open a YouTube video, Sponskip reads the video's public caption track in your browser. This analysis runs 100% locally on your machine using an on-device linguistic scanner. The video text is never transmitted to any third-party server.</li>
+        <li><strong>Public Crowdsourced Timestamps:</strong> To provide instant skips for previously analyzed videos, Sponskip may query the public SponsorBlock API using the public YouTube Video ID. No personal identifier, IP log, or cookies are shared.</li>
+        <li><strong>Local Usage Statistics:</strong> Counters such as total ads skipped and estimated time saved are stored exclusively on your device inside Chrome's local storage (<code>chrome.storage.local</code>). They are never synced, transmitted, or accessible to anyone else.</li>
+      </ul>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold text-white">3. Third-Party Services & APIs</h2>
+      <p>Sponskip does not integrate any third-party advertising SDKs, tracking pixels, or remote telemetry tools. It has zero external AI API dependencies and functions entirely client-side.</p>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold text-white">4. Permissions Required</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><code>storage</code>: Used solely to remember your preferred settings (auto-skip toggle, audio chime) and keep your local skipped stats counter on your device.</li>
+        <li><code>Host Permissions (*://*.youtube.com/*)</code>: Necessary to detect the YouTube player element, read closed caption tracks for sponsor phrases, and seek forward when an ad plays.</li>
+      </ul>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-xl font-semibold text-white">5. Contact</h2>
+      <p>For questions or support regarding this policy, reach out at <a href="mailto:support@sponskip.com" class="text-red-400 hover:underline">support@sponskip.com</a> or visit our GitHub organization at <a href="https://github.com/sponskip" class="text-red-400 hover:underline" target="_blank">github.com/sponskip</a>.</p>
+    </section>
+  </main>
+
+  <footer class="mt-16 pt-8 border-t border-gray-800 text-sm text-gray-500">
+    © 2026 Sponskip. All rights reserved.
+  </footer>
+</body>
+</html>
