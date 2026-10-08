@@ -7,7 +7,7 @@ Complete each item from the current extension source and the Chrome Web Store De
 - [ ] Chrome Web Store developer account is enrolled.
 - [ ] `sponskip-v1.0.1.zip` passes `node scripts/validate-package.mjs` before upload.
 - [ ] ZIP contains `manifest.json` at its root.
-- [ ] Package SHA-256 is recorded: `PENDING_PACKAGE_BUILD`.
+- [x] Package SHA-256 is recorded: `8512269ba0c7027c39c62c2a0dc145110f835333a81bf82502c7647ab111b452`.
 
 ## Store listing
 
