@@ -1,7 +1,7 @@
-# Security Policy
+# Security policy
 
-## Supported Versions
-Only the latest version of the extension is supported with security updates.
+## Reporting a vulnerability
 
-## Reporting a Vulnerability
-Please report security vulnerabilities by emailing the maintainer directly. Do not use public GitHub issues for security vulnerabilities.
+Do not open a public issue for a potential vulnerability in the website or extension. Use GitHub's private vulnerability-reporting feature in the [extension repository](https://github.com/sponskip/sponskip) when it is available. Otherwise, contact the repository owner through the [Sponskip GitHub profile](https://github.com/sponskip).
+
+Do not send credentials, browser cookies, account data, or private video URLs.
