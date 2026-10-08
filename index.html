@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sponskip — Zero-Latency YouTube Sponsor & Ad Auto-Skipper</title>
-  <meta name="description" content="The privacy-first, client-side Chrome extension that automatically skips embedded creator sponsor reads, disguised pitch segments, and promo intros on YouTube.">
+  <title>Sponskip — YouTube Sponsor Segment Skipper</title>
+  <meta name="description" content="A privacy-minded Chrome extension that checks SponsorBlock segments and locally available captions to skip likely sponsor reads on YouTube.">
   <meta name="google-site-verification" content="JcFKlYPcsditBDohdjvrjSHVHYs3z2zLaYLdCl4e-9Y">
 
   <!-- OpenGraph & Twitter Cards -->
   <meta property="og:title" content="Sponskip — YouTube Sponsor & Ad Auto-Skipper">
-  <meta property="og:description" content="Auto-skip in-video sponsor reads, promotion pitches, and creator endorsements in YouTube videos. Zero latency, 100% client-side privacy.">
+  <meta property="og:description" content="Skip SponsorBlock sponsor segments and locally detected sponsor reads on YouTube.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sponskip.com/">
   <meta property="og:image" content="https://sponskip.com/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sponskip — YouTube Sponsor Auto-Skipper">
-  <meta name="twitter:description" content="Zero latency, 100% client-side sponsor skipping on YouTube. Free and open source.">
+  <meta name="twitter:description" content="Skip SponsorBlock sponsor segments and locally detected sponsor reads on YouTube.">
   <meta name="twitter:image" content="https://sponskip.com/og-image.png">
 
   <link rel="icon" type="image/png" href="icon128.png">
@@ -127,6 +127,12 @@
       border-radius: 9999px;
       animation: wave 1.2s ease-in-out infinite alternate;
     }
+    .audio-bar:nth-child(1) { animation-delay: 0.1s; }
+    .audio-bar:nth-child(2) { animation-delay: 0.3s; }
+    .audio-bar:nth-child(3) { animation-delay: 0.2s; }
+    .audio-bar:nth-child(4) { animation-delay: 0.4s; }
+    #scrubProgress { width: 20%; }
+    #scrubHead { left: 20%; }
 
     /* Custom subtle scrollbar */
     ::-webkit-scrollbar {
@@ -195,7 +201,7 @@
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-          <span>v1.0.0 Public Release Verified</span>
+          <span>v1.0.0 GitHub release</span>
           <span class="text-gray-500">·</span>
           <span class="text-brand-400 group-hover:text-brand-500 font-semibold inline-flex items-center gap-1">
             Download ZIP <span>→</span>
@@ -212,7 +218,7 @@
 
         <!-- Subheadline -->
         <p class="text-base sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
-          Ad blockers catch banner popups, but they can’t touch host-read sponsorships. Sponskip identifies embedded pitches and skips past them automatically in real-time. Zero latency. 100% client-side privacy.
+          Sponskip checks public SponsorBlock segments first, then can inspect available captions locally to spot likely sponsor reads on YouTube. Turn on auto-skip and it jumps past the segments it finds.
         </p>
 
         <!-- CTA Action Bar -->
@@ -223,12 +229,7 @@
             <span>Download Extension (v1.0.0 ZIP)</span>
           </a>
 
-          <!-- Chrome Web Store Button (Status Tagged) -->
-          <a href="#install" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-card hover:bg-brand-surface text-gray-200 border border-brand-border hover:border-brand-borderHover font-semibold px-6 py-3.5 rounded-xl transition text-sm group">
-            <svg class="w-4 h-4 text-emerald-400 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
-            <span>Web Store Listing</span>
-            <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 rounded">In Review</span>
-          </a>
+          <span class="w-full sm:w-auto inline-flex items-center justify-center text-xs text-gray-400 border border-brand-border px-6 py-3.5 rounded-xl">Chrome Web Store listing coming soon</span>
         </div>
 
         <!-- Trust Metric Pills -->
@@ -239,7 +240,7 @@
           </span>
           <span class="flex items-center gap-1.5">
             <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            Zero user data collected
+            No Sponskip data collection
           </span>
           <span class="flex items-center gap-1.5">
             <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
@@ -252,7 +253,7 @@
       <div id="demo" class="max-w-4xl mx-auto mt-14">
         <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-brand-500/40 via-brand-border to-transparent shadow-2xl">
           <div class="bg-brand-card rounded-2xl overflow-hidden border border-brand-border">
-            
+
             <!-- Window Header -->
             <div class="bg-brand-surface/90 px-5 py-3 border-b border-brand-border flex items-center justify-between">
               <div class="flex items-center gap-2">
@@ -267,10 +268,10 @@
               <div class="flex items-center gap-3">
                 <!-- Audio Wave Visualizer -->
                 <div id="audioWave" class="hidden sm:flex items-center gap-1 h-5 px-2 bg-brand-dark rounded border border-brand-border">
-                  <div class="audio-bar" style="animation-delay: 0.1s"></div>
-                  <div class="audio-bar" style="animation-delay: 0.3s"></div>
-                  <div class="audio-bar" style="animation-delay: 0.2s"></div>
-                  <div class="audio-bar" style="animation-delay: 0.4s"></div>
+                  <div class="audio-bar"></div>
+                  <div class="audio-bar"></div>
+                  <div class="audio-bar"></div>
+                  <div class="audio-bar"></div>
                 </div>
                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -281,7 +282,7 @@
 
             <!-- Simulated YouTube Video Frame with Studio Backdrop -->
             <div class="relative studio-bg aspect-video sm:aspect-[21/9] flex flex-col justify-between p-6 overflow-hidden select-none">
-              
+
               <!-- Video Title & Host Mockup -->
               <div class="z-10 flex items-start justify-between">
                 <div>
@@ -300,7 +301,7 @@
                 <div id="videoCenterNotice" class="text-center p-4 rounded-xl bg-brand-surface/90 backdrop-blur-md border border-brand-border max-w-sm transition-all duration-300 shadow-2xl">
                   <div class="text-[11px] text-gray-400 uppercase tracking-widest font-mono mb-1 font-semibold">Live Simulation</div>
                   <div id="videoStateText" class="text-white text-sm font-semibold mb-3">Playing natural creator conversation...</div>
-                  <button id="replayBtn" onclick="runSim()" class="inline-flex items-center gap-1.5 text-xs font-bold bg-brand-500 hover:bg-brand-600 text-white px-3.5 py-1.5 rounded-md transition shadow-md shadow-brand-500/20">
+                  <button type="button" id="replayBtn" onclick="runSim()" class="inline-flex items-center gap-1.5 text-xs font-bold bg-brand-500 hover:bg-brand-600 text-white px-3.5 py-1.5 rounded-md transition shadow-md shadow-brand-500/20">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                     Replay Auto-Skip Demo
                   </button>
@@ -333,10 +334,10 @@
                   <div class="absolute top-0 bottom-0 left-[25%] w-[25%] bg-amber-500/90 rounded-sm border-x border-amber-300 shadow-sm shadow-amber-500/50" title="Detected Sponsor Pitch"></div>
 
                   <!-- Active Video Progress Fill -->
-                  <div id="scrubProgress" class="absolute top-0 bottom-0 left-0 bg-brand-500 rounded-full transition-all duration-100" style="width: 20%;"></div>
+                  <div id="scrubProgress" class="absolute top-0 bottom-0 left-0 bg-brand-500 rounded-full transition-all duration-100"></div>
 
                   <!-- Playhead Scrubber Dot -->
-                  <div id="scrubHead" class="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg shadow-black transition-all duration-100" style="left: 20%;"></div>
+                  <div id="scrubHead" class="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg shadow-black transition-all duration-100"></div>
                 </div>
               </div>
 
@@ -348,19 +349,19 @@
             <div class="bg-brand-surface px-6 py-4 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-brand-border text-center">
               <div>
                 <div class="text-[11px] uppercase tracking-wider text-gray-500 font-mono font-semibold">Detection Engine</div>
-                <div class="text-sm font-bold text-gray-200 mt-0.5">SponsorBlock API + Semantic</div>
+                <div class="text-sm font-bold text-gray-200 mt-0.5">SponsorBlock + captions</div>
               </div>
               <div>
-                <div class="text-[11px] uppercase tracking-wider text-gray-500 font-mono font-semibold">Execution Latency</div>
-                <div class="text-sm font-bold text-emerald-400 mt-0.5">&lt; 15ms Instant Snap</div>
+                <div class="text-[11px] uppercase tracking-wider text-gray-500 font-mono font-semibold">Playback control</div>
+                <div class="text-sm font-bold text-emerald-400 mt-0.5">Auto-skip when enabled</div>
               </div>
               <div>
-                <div class="text-[11px] uppercase tracking-wider text-gray-500 font-mono font-semibold">Memory Overhead</div>
-                <div class="text-sm font-bold text-gray-200 mt-0.5">&lt; 12 MB RAM</div>
+                <div class="text-[11px] uppercase tracking-wider text-gray-500 font-mono font-semibold">Caption fallback</div>
+                <div class="text-sm font-bold text-gray-200 mt-0.5">Local pattern matching</div>
               </div>
               <div>
-                <div class="text-[11px] uppercase tracking-wider text-gray-500 font-mono font-semibold">Privacy Model</div>
-                <div class="text-sm font-bold text-emerald-400 mt-0.5">100% Client-Side</div>
+                <div class="text-[11px] uppercase tracking-wider text-gray-500 font-mono font-semibold">Privacy model</div>
+                <div class="text-sm font-bold text-emerald-400 mt-0.5">No Sponskip analytics</div>
               </div>
             </div>
 
@@ -390,23 +391,23 @@
             <div class="w-12 h-12 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-500 flex items-center justify-center font-bold text-xl mb-6">
               ⚡
             </div>
-            <h3 class="text-xl font-bold text-white mb-3">Millisecond Timed-Text Stream Skipping</h3>
+            <h3 class="text-xl font-bold text-white mb-3">Caption-based fallback detection</h3>
             <p class="text-gray-400 text-sm leading-relaxed max-w-xl">
-              Unlike experimental AI extensions that try to run heavy local Whisper models (causing laptop fans to spin and killing battery life), Sponskip coordinates community segment timestamps with YouTube's instant caption pipeline. Zero audio transcription overhead.
+              Sponskip uses public SponsorBlock timestamps first. When no public segment is available and captions are present, it checks caption text locally for patterns associated with sponsor reads.
             </p>
           </div>
           <div class="mt-8 pt-6 border-t border-brand-border grid grid-cols-2 sm:grid-cols-3 gap-4 font-mono text-xs">
             <div class="bg-brand-surface p-3 rounded-lg border border-brand-border">
-              <span class="text-gray-500 block mb-1">Cold Fetch</span>
-              <span class="text-emerald-400 font-bold">~80ms API</span>
+              <span class="text-gray-500 block mb-1">First check</span>
+              <span class="text-emerald-400 font-bold">SponsorBlock API</span>
             </div>
             <div class="bg-brand-surface p-3 rounded-lg border border-brand-border">
-              <span class="text-gray-500 block mb-1">Local Cache</span>
-              <span class="text-white font-bold">&lt; 1ms Instant</span>
+              <span class="text-gray-500 block mb-1">Fallback</span>
+              <span class="text-white font-bold">Caption patterns</span>
             </div>
             <div class="bg-brand-surface p-3 rounded-lg border border-brand-border col-span-2 sm:col-span-1">
-              <span class="text-gray-500 block mb-1">Battery Drain</span>
-              <span class="text-emerald-400 font-bold">0.00% Zero</span>
+              <span class="text-gray-500 block mb-1">Audio transcription</span>
+              <span class="text-emerald-400 font-bold">Not used</span>
             </div>
           </div>
         </div>
@@ -417,7 +418,7 @@
             <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xl mb-6">
               🔒
             </div>
-            <h3 class="text-xl font-bold text-white mb-3">Zero Telemetry & True Privacy</h3>
+            <h3 class="text-xl font-bold text-white mb-3">Zero Telemetry &amp; True Privacy</h3>
             <p class="text-gray-400 text-sm leading-relaxed">
               We never inspect your personal YouTube account, browsing history, subscriptions, or playlists. The extension runs in local sandboxed memory.
             </p>
@@ -428,8 +429,8 @@
               <span class="text-emerald-400 font-bold">Not Required</span>
             </div>
             <div class="flex items-center justify-between">
-              <span>Data Sent Home:</span>
-              <span class="text-emerald-400 font-bold">Zero Bytes</span>
+              <span>Sponskip backend:</span>
+              <span class="text-emerald-400 font-bold">None</span>
             </div>
             <div class="flex items-center justify-between">
               <span>Analytics / Trackers:</span>
@@ -450,15 +451,15 @@
             </p>
           </div>
           <div class="mt-6 space-y-2 font-mono text-xs">
-            <button onclick="toggleCat(this)" class="w-full flex items-center justify-between bg-brand-surface hover:bg-brand-card px-3 py-2 rounded-lg border border-brand-border transition">
+            <button type="button" onclick="toggleCat(this)" class="w-full flex items-center justify-between bg-brand-surface hover:bg-brand-card px-3 py-2 rounded-lg border border-brand-border transition">
               <span class="text-gray-300">Sponsor Reads</span>
               <span class="cat-status text-brand-400 font-bold">AUTO-SKIP</span>
             </button>
-            <button onclick="toggleCat(this)" class="w-full flex items-center justify-between bg-brand-surface hover:bg-brand-card px-3 py-2 rounded-lg border border-brand-border transition">
+            <button type="button" onclick="toggleCat(this)" class="w-full flex items-center justify-between bg-brand-surface hover:bg-brand-card px-3 py-2 rounded-lg border border-brand-border transition">
               <span class="text-gray-300">Self Promotion</span>
               <span class="cat-status text-brand-400 font-bold">AUTO-SKIP</span>
             </button>
-            <button onclick="toggleCat(this)" class="w-full flex items-center justify-between bg-brand-surface hover:bg-brand-card px-3 py-2 rounded-lg border border-brand-border transition">
+            <button type="button" onclick="toggleCat(this)" class="w-full flex items-center justify-between bg-brand-surface hover:bg-brand-card px-3 py-2 rounded-lg border border-brand-border transition">
               <span class="text-gray-300">Subscribe Begging</span>
               <span class="cat-status text-emerald-400 font-bold">AUTO-SKIP</span>
             </button>
@@ -471,7 +472,7 @@
             <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xl mb-6">
               🎯
             </div>
-            <h3 class="text-xl font-bold text-white mb-3">Smooth Skip Transitions & Unpack Recovery</h3>
+            <h3 class="text-xl font-bold text-white mb-3">Smooth Skip Transitions &amp; Unpack Recovery</h3>
             <p class="text-gray-400 text-sm leading-relaxed max-w-xl">
               Creators often weave deceptive lead-ins into their sponsor reads ("Speaking of staying focused... let's talk about Athletic Greens"). Sponskip accurately aligns with the true boundary so you never miss the actual podcast topic when jumping back to content.
             </p>
@@ -490,7 +491,7 @@
     <section id="comparison" class="max-w-4xl mx-auto px-6 py-16 border-t border-brand-border">
       <div class="text-center mb-12">
         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3">How does Sponskip compare?</h2>
-        <p class="text-gray-400 text-sm">See why dedicated in-video sponsor skipping is essential for podcasts & interviews.</p>
+        <p class="text-gray-400 text-sm">See why dedicated in-video sponsor skipping is essential for podcasts &amp; interviews.</p>
       </div>
 
       <div class="overflow-x-auto glass-card rounded-2xl border border-brand-border">
@@ -511,20 +512,20 @@
               <td class="py-4 px-5 text-gray-500">Manual / Tedious</td>
             </tr>
             <tr>
-              <td class="py-4 px-5 font-medium text-white">Pre-roll & Banner Ads</td>
+              <td class="py-4 px-5 font-medium text-white">Pre-roll &amp; Banner Ads</td>
               <td class="py-4 px-5 text-gray-400 font-medium">Pairs w/ uBlock</td>
               <td class="py-4 px-5 text-emerald-400 font-bold">✓ Blocked</td>
               <td class="py-4 px-5 text-red-400">✗ None</td>
             </tr>
             <tr>
-              <td class="py-4 px-5 font-medium text-white">Zero Audio Latency</td>
-              <td class="py-4 px-5 text-emerald-400 font-bold">✓ &lt; 15ms</td>
+              <td class="py-4 px-5 font-medium text-white">Caption fallback</td>
+              <td class="py-4 px-5 text-emerald-400 font-bold">✓ When available</td>
               <td class="py-4 px-5 text-gray-400">N/A</td>
               <td class="py-4 px-5 text-gray-500">Delayed</td>
             </tr>
             <tr>
-              <td class="py-4 px-5 font-medium text-white">100% Client-Side Privacy</td>
-              <td class="py-4 px-5 text-emerald-400 font-bold">✓ Zero Tracking</td>
+              <td class="py-4 px-5 font-medium text-white">No Sponskip analytics</td>
+              <td class="py-4 px-5 text-emerald-400 font-bold">✓ No backend</td>
               <td class="py-4 px-5 text-emerald-400">✓ Varies</td>
               <td class="py-4 px-5 text-emerald-400">✓ Local</td>
             </tr>
@@ -552,7 +553,7 @@
         <div class="grid sm:grid-cols-3 gap-6">
           <div class="bg-brand-surface p-5 rounded-xl border border-brand-border">
             <div class="w-7 h-7 rounded-lg bg-brand-500/20 text-brand-400 border border-brand-500/30 flex items-center justify-center font-bold text-xs mb-3 font-mono">01</div>
-            <h4 class="text-white font-semibold text-sm mb-1.5">Download & Unzip</h4>
+            <h4 class="text-white font-semibold text-sm mb-1.5">Download &amp; Unzip</h4>
             <p class="text-gray-400 text-xs leading-relaxed">
               Download <a href="https://github.com/sponskip/sponskip/releases/tag/v1.0.0" class="text-brand-400 hover:underline">sponskip-v1.0.0.zip</a> from GitHub releases and extract it to a local folder.
             </p>
@@ -580,7 +581,7 @@
           <span class="text-base text-yellow-400">ℹ️</span>
           <div>
             <strong class="text-gray-200">Chrome Web Store Status:</strong>
-            The official one-click extension store package is submitted and currently under review. Direct ZIP loading gives you instant access today.
+            A Chrome Web Store listing is being prepared. Until it is available, install from the GitHub release using the steps above.
           </div>
         </div>
       </div>
@@ -601,7 +602,7 @@
             <span class="text-brand-400 transition group-open:rotate-180">▼</span>
           </summary>
           <p class="mt-3 text-xs sm:text-sm text-gray-400 leading-relaxed border-t border-brand-border/60 pt-3">
-            Yes. Sponskip is completely free, 100% client-side, and requests only the minimal host permissions required to inspect YouTube playback times and fetch segment metadata. No accounts, logins, or tracking pixels are ever used.
+            Sponskip is free to use and requests host permissions to inspect YouTube playback and fetch public SponsorBlock segment metadata. It does not require an account and includes no Sponskip analytics or tracking pixels.
           </p>
         </details>
 
@@ -623,7 +624,7 @@
             <span class="text-brand-400 transition group-open:rotate-180">▼</span>
           </summary>
           <p class="mt-3 text-xs sm:text-sm text-gray-400 leading-relaxed border-t border-brand-border/60 pt-3">
-            No. Sponskip requires zero OpenAI/Anthropic/Gemini API keys. It runs purely on local browser logic and crowdsourced SponsorBlock segment data.
+            No. Sponskip does not require an AI API key. It uses browser-side logic and public SponsorBlock segment data.
           </p>
         </details>
 
@@ -634,7 +635,7 @@
             <span class="text-brand-400 transition group-open:rotate-180">▼</span>
           </summary>
           <p class="mt-3 text-xs sm:text-sm text-gray-400 leading-relaxed border-t border-brand-border/60 pt-3">
-            The draft package has been assembled and is undergoing the standard Google Developer review process. In the meantime, users can install it instantly in 30 seconds via the verified GitHub ZIP package.
+            The listing is being prepared. In the meantime, users can install the current GitHub release with the ZIP steps above.
           </p>
         </details>
       </div>
@@ -653,7 +654,7 @@
         <a href="https://sponskip.com/privacy.html" class="hover:text-gray-300 transition">Privacy Policy</a>
         <a href="https://github.com/sponskip/sponskip/releases" class="hover:text-gray-300 transition">GitHub Releases</a>
         <a href="https://github.com/sponskip/sponskip" class="hover:text-gray-300 transition">Repository</a>
-        <a href="https://github.com/sponskip/sponskip/issues" class="hover:text-gray-300 transition">Support & Issues</a>
+        <a href="https://github.com/sponskip/sponskip/issues" class="hover:text-gray-300 transition">Support &amp; Issues</a>
       </div>
     </div>
   </footer>
