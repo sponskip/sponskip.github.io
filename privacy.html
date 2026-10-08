@@ -1,64 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy — Sponskip</title>
+  <meta name="description" content="Sponskip's privacy policy. We collect zero user data, zero browsing history, and zero telemetry.">
   <link rel="icon" type="image/png" href="icon128.png">
+
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              500: '#ef4444',
+              600: '#dc2626',
+              dark: '#070709',
+              card: '#0d0d12',
+              surface: '#121218',
+              border: 'rgba(255, 255, 255, 0.08)'
+            }
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0a0a0c; color: #f3f4f6; }
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #070709;
+      color: #e5e7eb;
+    }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
   </style>
 </head>
-<body class="min-h-screen p-6 md:p-12 max-w-4xl mx-auto">
-  <header class="mb-10 pb-6 border-b border-gray-800 flex items-center justify-between">
-    <div class="flex items-center space-x-3">
-      <img src="icon48.png" alt="Sponskip" class="w-8 h-8 rounded-lg">
-      <span class="text-xl font-bold tracking-tight">Sponskip</span>
+<body class="min-h-screen flex flex-col justify-between selection:bg-brand-500/30">
+
+  <!-- Header -->
+  <header class="border-b border-brand-border bg-brand-dark/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2.5 text-white font-bold hover:text-brand-500 transition">
+        <img src="icon48.png" alt="Sponskip" class="w-7 h-7 rounded-lg">
+        <span>Sponskip</span>
+      </a>
+      <a href="/" class="text-xs font-semibold text-gray-400 hover:text-white transition">
+        ← Back to Homepage
+      </a>
     </div>
-    <a href="/" class="text-sm text-gray-400 hover:text-white transition">← Back to Home</a>
   </header>
 
-  <main class="space-y-8 text-gray-300 leading-relaxed">
-    <h1 class="text-3xl font-extrabold text-white">Privacy Policy for Sponskip</h1>
-    <p class="text-sm text-gray-500">Last updated: October 6, 2026</p>
+  <!-- Content -->
+  <main class="max-w-4xl mx-auto px-6 py-16 flex-1">
+    <div class="bg-brand-card border border-brand-border rounded-2xl p-8 sm:p-12 shadow-xl">
+      <div class="border-b border-brand-border pb-6 mb-8">
+        <span class="text-xs font-mono uppercase text-brand-500 font-bold tracking-wider">Legal & Compliance</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">Privacy Policy</h1>
+        <p class="text-xs text-gray-500 mt-2 font-mono">Last Updated: October 7, 2026</p>
+      </div>
 
-    <section class="space-y-3">
-      <h2 class="text-xl font-semibold text-white">1. Core Privacy Commitment</h2>
-      <p>Sponskip is built on a single uncompromising principle: <strong>your browsing data belongs strictly to you</strong>. Sponskip does not collect, log, track, share, or sell any personal data, viewing history, account credentials, or telemetry of any kind.</p>
-    </section>
+      <div class="space-y-8 text-sm text-gray-300 leading-relaxed">
+        <section>
+          <h2 class="text-lg font-bold text-white mb-2">1. Our Core Privacy Principle</h2>
+          <p>
+            Sponskip is built on a strict zero-knowledge architecture. We believe that browser extensions should perform their utility locally without eavesdropping on what users watch, read, or listen to. We do not track, collect, transmit, or monetize any of your personal data or browsing activity.
+          </p>
+        </section>
 
-    <section class="space-y-3">
-      <h2 class="text-xl font-semibold text-white">2. What Data We Process</h2>
-      <ul class="list-disc pl-5 space-y-2">
-        <li><strong>YouTube Video Captions:</strong> When you open a YouTube video, Sponskip reads the video's public caption track in your browser. This analysis runs 100% locally on your machine using an on-device linguistic scanner. The video text is never transmitted to any third-party server.</li>
-        <li><strong>Public Crowdsourced Timestamps:</strong> To provide instant skips for previously analyzed videos, Sponskip may query the public SponsorBlock API using the public YouTube Video ID. No personal identifier, IP log, or cookies are shared.</li>
-        <li><strong>Local Usage Statistics:</strong> Counters such as total ads skipped and estimated time saved are stored exclusively on your device inside Chrome's local storage (<code>chrome.storage.local</code>). They are never synced, transmitted, or accessible to anyone else.</li>
-      </ul>
-    </section>
+        <section>
+          <h2 class="text-lg font-bold text-white mb-2">2. What Data Sponskip Accesses</h2>
+          <p class="mb-3">
+            Sponskip requests the minimum browser permissions necessary to operate:
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5 text-gray-400">
+            <li><strong class="text-gray-200">Host Permission (<code>*://*.youtube.com/*</code>)</strong>: Required solely to inject the lightweight playback controller script that detects video timestamps and advances playback past sponsor reads.</li>
+            <li><strong class="text-gray-200">Host Permission (<code>https://sponsor.ajay.app/*</code>)</strong>: Used to fetch public, crowdsourced sponsor segment intervals for the currently active YouTube video ID. No user identifiers or Google account tokens are sent with this request.</li>
+            <li><strong class="text-gray-200">Storage Permission (<code>chrome.storage.local</code>)</strong>: Used entirely on your local machine to remember your preferences (such as auto-skip toggles, enabled categories, and cached segment timestamps).</li>
+          </ul>
+        </section>
 
-    <section class="space-y-3">
-      <h2 class="text-xl font-semibold text-white">3. Third-Party Services & APIs</h2>
-      <p>Sponskip does not integrate any third-party advertising SDKs, tracking pixels, or remote telemetry tools. It has zero external AI API dependencies and functions entirely client-side.</p>
-    </section>
+        <section>
+          <h2 class="text-lg font-bold text-white mb-2">3. Zero Data Collection & Zero Telemetry</h2>
+          <p>
+            Sponskip does not contain any analytics SDKs, error tracking reporting libraries (such as Sentry), advertising beacons, or telemetry. No information regarding your identity, IP address, browsing history, subscriptions, search queries, or watch history is ever stored or transmitted to Sponskip servers.
+          </p>
+        </section>
 
-    <section class="space-y-3">
-      <h2 class="text-xl font-semibold text-white">4. Permissions Required</h2>
-      <ul class="list-disc pl-5 space-y-2">
-        <li><code>storage</code>: Used solely to remember your preferred settings (auto-skip toggle, audio chime) and keep your local skipped stats counter on your device.</li>
-        <li><code>Host Permissions (*://*.youtube.com/*)</code>: Necessary to detect the YouTube player element, read closed caption tracks for sponsor phrases, and seek forward when an ad plays.</li>
-      </ul>
-    </section>
+        <section>
+          <h2 class="text-lg font-bold text-white mb-2">4. Third-Party Services</h2>
+          <p>
+            When viewing a YouTube video, the extension queries the public SponsorBlock API for segment boundaries. Queries transmit only the video ID (or hash prefix). For information regarding SponsorBlock's data practices, please review the <a href="https://sponsor.ajay.app" target="_blank" class="text-brand-500 hover:underline">SponsorBlock documentation</a>. Sponskip has no commercial or corporate affiliation with YouTube, Google LLC, or SponsorBlock.
+          </p>
+        </section>
 
-    <section class="space-y-3">
-      <h2 class="text-xl font-semibold text-white">5. Contact</h2>
-      <p>For questions or support regarding this policy, reach out at <a href="mailto:support@sponskip.com" class="text-red-400 hover:underline">support@sponskip.com</a> or visit our GitHub organization at <a href="https://github.com/sponskip" class="text-red-400 hover:underline" target="_blank">github.com/sponskip</a>.</p>
-    </section>
+        <section>
+          <h2 class="text-lg font-bold text-white mb-2">5. Open Source & Auditability</h2>
+          <p>
+            The full source code of Sponskip is public and available for inspection at <a href="https://github.com/sponskip/sponskip" target="_blank" class="text-brand-500 hover:underline font-mono">github.com/sponskip/sponskip</a>. Anyone may review the codebase to verify our privacy guarantees.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-lg font-bold text-white mb-2">6. Contact</h2>
+          <p>
+            If you have questions regarding this privacy policy or the extension's behavior, you may open an issue on GitHub or contact Blake Burford at <code class="font-mono text-gray-200 bg-brand-surface px-1.5 py-0.5 rounded border border-brand-border">burfordblake056@gmail.com</code>.
+          </p>
+        </section>
+      </div>
+    </div>
   </main>
 
-  <footer class="mt-16 pt-8 border-t border-gray-800 text-sm text-gray-500">
-    © 2026 Sponskip. All rights reserved.
+  <!-- Footer -->
+  <footer class="border-t border-brand-border py-8 px-6 text-center text-xs text-gray-500">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <span>© 2026 Sponskip by Blake Burford. All Rights Reserved.</span>
+      <div class="flex items-center gap-4">
+        <a href="/" class="hover:text-gray-300">Home</a>
+        <a href="https://github.com/sponskip/sponskip" class="hover:text-gray-300">GitHub</a>
+        <a href="https://github.com/sponskip/sponskip/releases" class="hover:text-gray-300">Releases</a>
+      </div>
+    </div>
   </footer>
+
 </body>
 </html>
