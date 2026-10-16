@@ -8,13 +8,13 @@
   <meta name="google-site-verification" content="JcFKlYPcsditBDohdjvrjSHVHYs3z2zLaYLdCl4e-9Y">
 
   <!-- OpenGraph & Twitter Cards -->
-  <meta property="og:title" content="Sponskip — YouTube Sponsor & Ad Auto-Skipper">
+  <meta property="og:title" content="Sponskip — YouTube Sponsor Segment Skipper">
   <meta property="og:description" content="Skip SponsorBlock sponsor segments and locally detected sponsor reads on YouTube.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sponskip.com/">
   <meta property="og:image" content="https://sponskip.com/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Sponskip — YouTube Sponsor Auto-Skipper">
+  <meta name="twitter:title" content="Sponskip — YouTube Sponsor Segment Skipper">
   <meta name="twitter:description" content="Skip SponsorBlock sponsor segments and locally detected sponsor reads on YouTube.">
   <meta name="twitter:image" content="https://sponskip.com/og-image.png">
 
@@ -148,6 +148,226 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #ef4444;
     }
+
+    /* ASCII launch hero: one visual plane, with real text above the decorative field. */
+    .signal-hero {
+      position: relative;
+      isolation: isolate;
+      min-height: calc(100svh - 64px);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 52%, rgba(139, 22, 31, 0.31), transparent 58%),
+        radial-gradient(ellipse at 50% 110%, rgba(238, 61, 44, 0.22), transparent 58%),
+        linear-gradient(180deg, #13090c 0%, #10080b 52%, #080709 100%);
+      border-bottom: 1px solid rgba(255, 136, 119, 0.16);
+    }
+    .signal-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(7, 7, 9, 0.42), transparent 22%, transparent 78%, rgba(7, 7, 9, 0.42));
+    }
+    .signal-field {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.72;
+      pointer-events: none;
+      user-select: none;
+    }
+    .signal-hero__inner {
+      position: relative;
+      z-index: 2;
+      width: min(100% - 48px, 1180px);
+      margin: 0 auto;
+      padding: 70px 0 54px;
+      text-align: center;
+    }
+    .signal-hero__topline,
+    .signal-hero__footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      color: #f1b2a9;
+      font: 600 10px/1.4 'JetBrains Mono', monospace;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+    .signal-hero__topline {
+      margin-bottom: clamp(42px, 8vh, 88px);
+    }
+    .signal-hero__footer {
+      margin-top: clamp(50px, 8vh, 90px);
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 204, 191, 0.16);
+      color: #aa7774;
+    }
+    .signal-hero__topline span:last-child::before {
+      content: "";
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 9px;
+      border-radius: 50%;
+      background: #ff6b58;
+      box-shadow: 0 0 12px #ff6b58;
+    }
+    .ascii-wordmark {
+      width: max-content;
+      max-width: 100%;
+      margin: 0 auto;
+      overflow: visible;
+      color: #ffd4c8;
+      background: linear-gradient(180deg, #fff3e9 2%, #ff9e88 48%, #ea4c4d 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font: 800 clamp(6.4px, 1.76vw, 25px)/0.98 'JetBrains Mono', monospace;
+      letter-spacing: 0;
+      text-align: left;
+      white-space: pre;
+      user-select: none;
+      filter: drop-shadow(0 0 26px rgba(242, 86, 72, 0.32));
+      animation: signal-reveal 750ms both;
+    }
+    .ascii-wordmark--mobile { display: none; }
+    .signal-hero__rule {
+      width: min(440px, 74%);
+      height: 1px;
+      margin: clamp(28px, 5vh, 52px) auto 26px;
+      background: linear-gradient(90deg, transparent, rgba(255, 156, 130, 0.8), transparent);
+      box-shadow: 0 0 18px rgba(255, 85, 70, 0.5);
+    }
+    .signal-hero__headline {
+      max-width: 900px;
+      margin: 0 auto 17px;
+      color: #fff8f2;
+      font-size: clamp(32px, 4vw, 62px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.055em;
+      animation: signal-rise 700ms 120ms both;
+    }
+    .signal-hero__headline em {
+      color: #ff8874;
+      font-style: normal;
+    }
+    .signal-hero__copy {
+      max-width: 620px;
+      margin: 0 auto;
+      color: #d6bbb6;
+      font-size: clamp(14px, 1.3vw, 17px);
+      line-height: 1.7;
+      animation: signal-rise 700ms 220ms both;
+    }
+    .signal-hero__actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      margin-top: 29px;
+      animation: signal-rise 700ms 300ms both;
+    }
+    .signal-hero__primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 22px;
+      border: 1px solid #ffb09f;
+      border-radius: 7px;
+      background: #ff6b55;
+      color: #260a0a;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 8px 32px rgba(234, 64, 51, 0.22);
+      transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+    .signal-hero__primary:hover {
+      transform: translateY(-3px);
+      background: #ff9a81;
+      box-shadow: 0 12px 42px rgba(234, 64, 51, 0.32);
+    }
+    .signal-hero__secondary {
+      color: #f7c3b8;
+      font: 600 11px/1.4 'JetBrains Mono', monospace;
+      letter-spacing: 0.03em;
+    }
+    .signal-hero__secondary a {
+      color: #fff0e9;
+      text-underline-offset: 4px;
+    }
+    .signal-hero__secondary a:hover { color: #ff9a81; }
+    .demo-section {
+      position: relative;
+      padding: 70px 24px 85px;
+      background: linear-gradient(180deg, #09080b 0%, #070709 100%);
+    }
+    .demo-section::before {
+      content: "01 / THE SKIP IN ACTION";
+      display: block;
+      width: min(100%, 896px);
+      margin: 0 auto 22px;
+      color: #fc8978;
+      font: 600 11px/1.4 'JetBrains Mono', monospace;
+      letter-spacing: 0.16em;
+    }
+    #features { border-top-color: rgba(255, 126, 107, 0.16); }
+    #features > .text-center > span { letter-spacing: 0.16em; }
+    #features .glass-card {
+      border-radius: 10px;
+      background: linear-gradient(145deg, rgba(24, 15, 19, 0.88), rgba(12, 11, 15, 0.86));
+    }
+    #features .glass-card:hover { transform: none; }
+    @keyframes signal-reveal {
+      from { opacity: 0; transform: translateY(12px); filter: blur(6px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0) drop-shadow(0 0 26px rgba(242, 86, 72, 0.32)); }
+    }
+    @keyframes signal-rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 640px) {
+      .signal-hero { min-height: calc(100svh - 64px); }
+      .signal-hero__inner { width: min(100% - 28px, 1180px); padding: 38px 0 30px; }
+      .signal-hero__topline { margin-bottom: 42px; font-size: 8px; letter-spacing: 0.08em; }
+      .signal-hero__footer { margin-top: 44px; font-size: 8px; letter-spacing: 0.06em; }
+      .ascii-wordmark--desktop { display: none; }
+      .ascii-wordmark--mobile {
+        display: block;
+        font-size: clamp(13px, 4vw, 18px);
+        line-height: 0.91;
+      }
+      .signal-hero__rule { margin-top: 30px; }
+      .signal-hero__copy { max-width: 35ch; }
+      .signal-hero__actions { flex-direction: column; }
+      .signal-hero__primary { width: min(100%, 320px); }
+      .demo-section { padding: 48px 16px 68px; }
+    }
+    @media (max-width: 640px) and (max-height: 700px) {
+      .signal-hero__inner { padding: 22px 0 24px; }
+      .signal-hero__topline { margin-bottom: 24px; }
+      .signal-hero__rule { margin-top: 20px; margin-bottom: 17px; }
+      .signal-hero__headline { margin-bottom: 11px; }
+      .signal-hero__actions { margin-top: 20px; }
+      .signal-hero__footer { margin-top: 28px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ascii-wordmark,
+      .signal-hero__headline,
+      .signal-hero__copy,
+      .signal-hero__actions { animation: none; }
+      .signal-hero__primary { transition: none; }
+      .audio-bar { animation: none; }
+    }
   </style>
 </head>
 <body class="selection:bg-brand-500/30 selection:text-brand-100 min-h-screen flex flex-col justify-between">
@@ -191,66 +411,56 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- ASCII launch hero -->
   <main>
-    <section class="relative pt-16 pb-12 md:pt-24 md:pb-20 px-6 overflow-hidden">
-      <div class="max-w-4xl mx-auto text-center">
-        <!-- 21st.dev Animated Announcement Pill -->
-        <a href="https://github.com/sponskip/sponskip/releases/tag/v1.0.1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 bg-brand-card hover:bg-brand-surface border border-brand-border hover:border-brand-borderHover px-4 py-1.5 rounded-full text-xs font-medium text-gray-300 mb-8 transition shadow-sm group">
-          <span class="flex h-2 w-2 relative">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span>v1.0.1 GitHub release</span>
-          <span class="text-gray-500">·</span>
-          <span class="text-brand-400 group-hover:text-brand-500 font-semibold inline-flex items-center gap-1">
-            Download ZIP <span>→</span>
-          </span>
-        </a>
-
-        <!-- Hero Headline -->
-        <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.08]">
-          Skip every creator <br class="hidden sm:inline">
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-brand-500 to-rose-400">
-            sponsor read instantly
-          </span>.
-        </h1>
-
-        <!-- Subheadline -->
-        <p class="text-base sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
-          Sponskip checks public SponsorBlock segments first, then can inspect available captions locally to spot likely sponsor reads on YouTube. Turn on auto-skip and it jumps past the segments it finds.
-        </p>
-
-        <!-- CTA Action Bar -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto">
-          <!-- Direct Release Download Button -->
-          <a href="https://github.com/sponskip/sponskip/releases/download/v1.0.1/sponskip-v1.0.1.zip" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-600 text-white font-bold px-7 py-3.5 rounded-xl shadow-xl shadow-brand-600/30 transition transform hover:-translate-y-0.5 active:translate-y-0 text-sm">
-            <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-            <span>Download Extension (v1.0.1 ZIP)</span>
-          </a>
-
-          <span class="w-full sm:w-auto inline-flex items-center justify-center text-xs text-gray-400 border border-brand-border px-6 py-3.5 rounded-xl">Chrome Web Store listing coming soon</span>
+    <section id="hero" class="signal-hero">
+      <canvas id="asciiField" class="signal-field" aria-hidden="true"></canvas>
+      <div class="signal-hero__inner">
+        <div class="signal-hero__topline">
+          <span>Playback / uninterrupted</span>
+          <span>Extension online · v1.0.1</span>
         </div>
+        <pre class="ascii-wordmark ascii-wordmark--desktop" aria-hidden="true"> ###### ######   #####  ##   ##  ###### ##   ## ####### ######
+##      ##   ## ##   ## ###  ## ##      ##  ##    ###   ##   ##
+##      ##   ## ##   ## #### ## ##      ## ##     ###   ##   ##
+ #####  ######  ##   ## ## ####  #####  ####      ###   ######
+     ## ##      ##   ## ##  ###      ## ## ##     ###   ##
+     ## ##      ##   ## ##   ##      ## ##  ##    ###   ##
+######  ##       #####  ##   ## ######  ##   ## ####### ##</pre>
+        <pre class="ascii-wordmark ascii-wordmark--mobile" aria-hidden="true"> ###### ######   #####  ##   ##
+##      ##   ## ##   ## ###  ##
+##      ##   ## ##   ## #### ##
+ #####  ######  ##   ## ## ####
+     ## ##      ##   ## ##  ###
+     ## ##      ##   ## ##   ##
+######  ##       #####  ##   ##
 
-        <!-- Trust Metric Pills -->
-        <div class="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-500 font-medium">
-          <span class="flex items-center gap-1.5">
-            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            No external AI API keys
-          </span>
-          <span class="flex items-center gap-1.5">
-            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            No Sponskip data collection
-          </span>
-          <span class="flex items-center gap-1.5">
-            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            SponsorBlock segment compatible
-          </span>
+ ###### ##   ## ####### ######
+##      ##  ##    ###   ##   ##
+##      ## ##     ###   ##   ##
+ #####  ####      ###   ######
+     ## ## ##     ###   ##
+     ## ##  ##    ###   ##
+######  ##   ## ####### ##</pre>
+        <div class="signal-hero__rule" aria-hidden="true"></div>
+        <h1 class="signal-hero__headline">Skip the sponsor. <em>Keep the story.</em></h1>
+        <p class="signal-hero__copy">Sponskip skips known sponsor segments on YouTube. When public timestamps are missing, it can check available captions locally for likely sponsor reads.</p>
+        <div class="signal-hero__actions">
+          <a href="https://github.com/sponskip/sponskip/releases/download/v1.0.1/sponskip-v1.0.1.zip" class="signal-hero__primary">
+            <span aria-hidden="true">↓</span> Download for Chrome · v1.0.1
+          </a>
+          <span class="signal-hero__secondary">Chrome Web Store coming soon · <a href="https://github.com/sponskip/sponskip/releases/tag/v1.0.1">Release notes ↗</a></span>
+        </div>
+        <div class="signal-hero__footer">
+          <span>Known segments / caption fallback</span>
+          <span>Scroll to see the skip ↓</span>
         </div>
       </div>
+    </section>
 
-      <!-- 21st.dev Interactive Player Simulation -->
-      <div id="demo" class="max-w-4xl mx-auto mt-14">
+    <!-- Interactive Player Simulation -->
+    <section class="demo-section">
+      <div id="demo" class="max-w-4xl mx-auto">
         <div class="relative rounded-2xl p-[1px] bg-gradient-to-b from-brand-500/40 via-brand-border to-transparent shadow-2xl">
           <div class="bg-brand-card rounded-2xl overflow-hidden border border-brand-border">
 
@@ -373,9 +583,9 @@
     <!-- Bento Grid Section: Why Sponskip -->
     <section id="features" class="max-w-6xl mx-auto px-6 py-16 border-t border-brand-border">
       <div class="text-center max-w-2xl mx-auto mb-14">
-        <span class="text-xs font-mono uppercase tracking-widest text-brand-400 font-bold">Engineered for Performance</span>
+        <span class="text-xs font-mono uppercase tracking-widest text-brand-400 font-bold">02 / Under the hood</span>
         <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-4 tracking-tight">
-          How Sponskip eliminates the podcast ad tax
+          A cleaner way through the video
         </h2>
         <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
           Standard ad blockers inspect network requests to stop banners. They cannot see what creator hosts say in front of a microphone. Sponskip bridges the gap directly in your browser.
@@ -499,7 +709,7 @@
           <thead>
             <tr class="border-b border-brand-border text-gray-400 font-mono text-xs bg-brand-surface/50">
               <th class="py-4 px-5 font-semibold">Capabilities</th>
-              <th class="py-4 px-5 font-semibold text-brand-400">Sponskip v1.0</th>
+              <th class="py-4 px-5 font-semibold text-brand-400">Sponskip v1.0.1</th>
               <th class="py-4 px-5 font-semibold">Standard Adblockers</th>
               <th class="py-4 px-5 font-semibold">Manual 10s Scrubbing</th>
             </tr>
@@ -661,6 +871,87 @@
 
   <!-- Interactive Demo & Category Toggle Scripts -->
   <script>
+    // A lightweight character field inspired by terminal ASCII art. Decorative only.
+    (() => {
+      const hero = document.getElementById('hero');
+      const canvas = document.getElementById('asciiField');
+      const context = canvas.getContext('2d');
+      if (!context) return;
+
+      const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const glyphs = '.:+/*';
+      let width = 0;
+      let height = 0;
+      let visible = true;
+      let running = false;
+      let frameId = 0;
+      let lastDraw = 0;
+
+      function draw(time) {
+        context.clearRect(0, 0, width, height);
+        context.font = "11px 'JetBrains Mono', monospace";
+        context.textBaseline = 'middle';
+        const sweep = (time * 0.055) % (width + height * 0.45 + 260) - 130;
+
+        for (let y = 12, row = 0; y < height; y += 19, row++) {
+          for (let x = 10, col = 0; x < width; x += 20, col++) {
+            const seed = (col * 37 + row * 71 + col * row * 11) % 97;
+            if (seed < 27) continue;
+            const distance = Math.abs(x + y * 0.45 - sweep);
+            const signal = Math.max(0, 1 - distance / 115);
+            const center = Math.abs(x - width / 2) < width * 0.35 &&
+              Math.abs(y - height / 2) < height * 0.32;
+            const alpha = (center ? 0.07 : 0.13) + signal * (center ? 0.11 : 0.34);
+            context.fillStyle = `rgba(255, 137, 114, ${alpha.toFixed(3)})`;
+            context.fillText(glyphs[(seed + row) % glyphs.length], x, y);
+          }
+        }
+      }
+
+      function resize() {
+        const bounds = hero.getBoundingClientRect();
+        width = bounds.width;
+        height = bounds.height;
+        const ratio = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.round(width * ratio);
+        canvas.height = Math.round(height * ratio);
+        context.setTransform(ratio, 0, 0, ratio, 0, 0);
+        draw(0);
+      }
+
+      function tick(time) {
+        if (!running) return;
+        if (time - lastDraw >= 67) {
+          draw(time);
+          lastDraw = time;
+        }
+        frameId = requestAnimationFrame(tick);
+      }
+
+      function updateMotion() {
+        const shouldRun = visible && !document.hidden && !motion.matches;
+        if (shouldRun && !running) {
+          running = true;
+          lastDraw = 0;
+          frameId = requestAnimationFrame(tick);
+        } else if (!shouldRun && running) {
+          running = false;
+          cancelAnimationFrame(frameId);
+          if (motion.matches) draw(0);
+        }
+      }
+
+      new ResizeObserver(resize).observe(hero);
+      new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        updateMotion();
+      }).observe(hero);
+      document.addEventListener('visibilitychange', updateMotion);
+      motion.addEventListener('change', updateMotion);
+      resize();
+      updateMotion();
+    })();
+
     let simTimer = null;
     let simProgress = 20; // percent (0 to 100)
     let isSkipping = false;
